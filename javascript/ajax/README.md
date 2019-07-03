@@ -20,7 +20,7 @@
   ```
   > #### 响应
     onreadystatechange事件，每当readyState发生改变时都会触发onreadystatechange，有以下几个状态：
-    - 0 （未初始化）还没有调用send()
+    * 0 （未初始化）还没有调用send()
     - 1 （载入）已调用send()，正在发送请求
     - 2 （载入完成）send()执行完成，已经接收到全部响应内容
     - 3 （交互）正在解析响应内容
