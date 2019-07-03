@@ -30,7 +30,7 @@ function ajax(options) {
         xmlHttp.onerror = (err) => {
             reject && reject(err)
         }
-        if (type.toLowerCase() === 'get') { //大小写不限
+        if (type.toLowerCase() === 'get') {     //大小写不限
             xmlHttp.open(type, url + '?' + ToString(data), async)
             xmlHttp.send()
         } else {
