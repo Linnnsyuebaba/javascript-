@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>debounce&throttle</title>
+</head>
+
+<body>
+    <div id="wrapper" style="display: flex; flex-direction: column">
+        no debounce <input type="text" id="unDebounce">
+        debounce <input type="text" id="debounce">
+        throttle <input type="text" id="throttle">
+    </div>
+    <script>
+        function formatDate(now) {
+            function add0(str) {
+                return str <= 9 ? '0' + str : str
+            }
+            var year = now.getFullYear()
+            var month = add0(now.getMonth() + 1)
+            var date = add0(now.getDate())
+            var hour = add0(now.getHours())
+            var minute = add0(now.getMinutes())
+            var second = add0(now.getSeconds())
+            return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second
+        }
+
+        function ajax(content) {
+            console.log('ajax request ' + content, formatDate(new Date()))
+        }
+
+        function debounce(fn, delay = 500) {
+            let timer = null
+            return function (_args) {
+                clearTimeout(timer)
+                timer = setTimeout(function () {
+                    fn.call(this, _args)
+                }, delay)
+            }
+        }
+
+        function throttle(fn, delay) {
+            let flag = true
+            return function (_args) {
+                if (!flag) return
+                flag = false
+                setTimeout(function () {
+                    fn.call(this, _args)
+                    flag = true
+                }, delay)
+            }
+        }
+
+        function eventBind(elem, type, selector, fn) {
+            if (!fn) {
+                fn = selector
+                selector = null
+            }
+            elem.addEventListener(type, function (e) {
+                if (selector) {
+                    let target = e.target
+                    if (target.matches(selector)) {
+                        fn.call(target, target.value)
+                    }
+                } else {
+                    fn(e)
+                }
+            })
+        }
+        let wrapper = document.getElementById('wrapper')
+        eventBind(wrapper, 'keyup', 'input#unDebounce', ajax)
+        eventBind(wrapper, 'keyup', 'input#debounce', debounce(ajax, 500))
+        eventBind(wrapper, 'keyup', 'input#throttle', throttle(ajax, 1000))
+    </script>
+</body>
+
+</html>
