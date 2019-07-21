@@ -3,6 +3,7 @@
 它们都可以改变函数都执行作用域（改变this）
 
 > ## call
+
 ```javascript
 Function.prototype.myCall = function(context) {
   context = context || window   //根据入参决定指向
@@ -15,6 +16,7 @@ Function.prototype.myCall = function(context) {
 ```
 
 > ## apply
+
 ```javascript
 Function.prototype.myApply = function(context) {
   context = context || window   //根据入参决定指向
@@ -27,7 +29,9 @@ Function.prototype.myApply = function(context) {
 ```
 
 > ## bind
+
 ```javascript
+//ES5
 Function.prototype.myBind = function(context) {
   let self = this
   const args = [...arguments].slice(1)    //保存参数以支持柯里化
@@ -37,6 +41,13 @@ Function.prototype.myBind = function(context) {
       return self.apply(this, args.concat(_arg))
     }
     return self.apply(context, args.concat(_arg))
+  }
+}
+//ES6
+Function.prototype.MyBind = function(context, ...args){
+  let self = this
+  return function Fn(..._args) {
+    return self.apply(context, [...args, ..._args])
   }
 }
 ```
