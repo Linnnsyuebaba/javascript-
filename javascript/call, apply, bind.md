@@ -28,15 +28,23 @@ Function.prototype.myApply = function(context) {
 
 > ## bind
 ```javascript
-Function.prototype.myBind = function(context) {
+ES5
+Function.prototype.myBind = function() {
   let self = this
-  const args = [...arguments].slice(1)    //保存参数以支持柯里化
-  return function Fn() {
-    let _arg = [...arguments].slice()   //返回的函数也要支持柯里化
-    if(this instanceof Fn){   //判断是否被当做构造函数使用
-      return self.apply(this, args.concat(_arg))
-    }
-    return self.apply(context, args.concat(_arg))
+  let args = Array.prototype.slice.call(arguments)
+  let context = args.shift()
+  return function(){
+    let _args = Array.prototype.slice.call(arguments)
+    return self.apply(context, args.concat(_args))
+  }
+}
+
+ES6
+Function.prototype.myBind = function(...args){
+  let self = this
+  let context = args.shift()
+  return function(..._args){
+    return self.apply(context, [...args, ..._args])
   }
 }
 ```
