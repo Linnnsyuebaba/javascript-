@@ -4,22 +4,20 @@
 
 > ## call
 ```javascript
-Function.prototype.myCall = function(context) {
-  context = context || window   //根据入参决定指向
-  context.fn = this   //this指向调用call的函数，谁最后调用this指向哪
-  const args = [...arguments].slice(1)    //去除传入的第一个参数指向
+Function.prototype.myCall = function(...args) {
+  let context = args.shift()
+  context.fn = this     //this指向调用call的函数，谁最后调用this指向哪
   context.fn(...args)   //根据call的特点: 接受的是若干个参数列表
-  delete context.fn; // 执行后销毁新增属性
+  delete context.fn     // 执行后销毁新增属性
   return context
 }
 ```
 
 > ## apply
 ```javascript
-Function.prototype.myApply = function(context) {
-  context = context || window   //根据入参决定指向
+Function.prototype.myApply = function(...args) {
+  let context = args.shift()
   context.fn = this   //this指向调用call的函数，谁最后调用this指向哪
-  const args = [...arguments].slice(1)    //去除传入的第一个参数指向
   context.fn(args)  //根据call的特点: 接受一个包含多个参数的数组
   delete context.fn; // 执行后销毁新增属性
   return context
