@@ -29,13 +29,9 @@ Function.prototype.myApply = function(...args) {
 > ## bind
 
 ```javascript
-<<<<<<< HEAD
+
 //ES5
-Function.prototype.myBind = function(context) {
-=======
-ES5
 Function.prototype.myBind = function() {
->>>>>>> d1ae17e1a308c0f78cb6695c2e12697dfe61bd33
   let self = this
   let args = Array.prototype.slice.call(arguments)
   let context = args.shift()
@@ -44,19 +40,12 @@ Function.prototype.myBind = function() {
     return self.apply(context, args.concat(_args))
   }
 }
-<<<<<<< HEAD
-//ES6
-Function.prototype.MyBind = function(context, ...args){
-  let self = this
-  return function Fn(..._args) {
-=======
 
-ES6
+//ES6
 Function.prototype.myBind = function(...args){
   let self = this
   let context = args.shift()
   return function(..._args){
->>>>>>> d1ae17e1a308c0f78cb6695c2e12697dfe61bd33
     return self.apply(context, [...args, ..._args])
   }
 }
