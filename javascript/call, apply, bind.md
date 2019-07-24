@@ -8,9 +8,9 @@
 Function.prototype.myCall = function(...args) {
   let context = args.shift()
   context.fn = this     //this指向调用call的函数，谁最后调用this指向哪
-  context.fn(...args)   //根据call的特点: 接受的是若干个参数列表
+  let result = context.fn(...args)   //根据call的特点: 接受的是若干个参数列表
   delete context.fn     // 执行后销毁新增属性
-  return context
+  return result
 }
 ```
 
@@ -20,9 +20,9 @@ Function.prototype.myCall = function(...args) {
 Function.prototype.myApply = function(...args) {
   let context = args.shift()
   context.fn = this   //this指向调用call的函数，谁最后调用this指向哪
-  context.fn(args)  //根据call的特点: 接受一个包含多个参数的数组
+  let result = context.fn(args)  //根据call的特点: 接受一个包含多个参数的数组
   delete context.fn; // 执行后销毁新增属性
-  return context
+  return result
 }
 ```
 
