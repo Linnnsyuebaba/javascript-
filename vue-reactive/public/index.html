@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue-reactive</title>
+  </head>
+  <body>
+    <div class="input">
+      <input id="input" type="text" placeholder="输入内容后回车" />
+      <p>打开控制台，进行更多操作</p>
+    </div>
+    <div class="content">
+      <div class="reactive-item" id="vue2">
+        <div class="title">Vue2.x</div>
+        <div class="subject text">data.msg = <span class="val"></span></div>
+        <div class="subject computed">computed = <span class="val"></span></div>
+        <div class="subject watch">
+          watch:(只有当data数据发生变化时才会驱动)
+          <br>
+          旧值：<span class="oldVal"></span>
+          新值：<span class="newVal"></span>
+        </div>
+      </div>
+      <div class="reactive-item" id="vue3">
+        <div class="title">Vue3.0</div>
+        <div class="text">data.msg = <span class="val"></span></div>
+      </div>
+    </div>
+  </body>
+</html>
