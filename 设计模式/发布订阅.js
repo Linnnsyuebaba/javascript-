@@ -29,7 +29,7 @@ eventEmitter.off = function (event, fn) {
 }
 eventEmitter.once = function (event, fn) {
   let self = this
-  function once (...args) {
+  function once(...args) {
     self.off(event, once)
     fn.apply(self, args)
   }
@@ -56,3 +56,28 @@ eventEmitter.emit('test', 'test') // 再次发布test（此时无人订阅）
 // user1订阅了play
 // user3订阅了test
 
+class EventEmitter {
+  constructor() {
+    this.subs = {}
+  }
+  on(event, cb) {
+    this.subs[event] || (this.subs[event] = new Set()).add(cb)
+  }
+  emit(event, ...args) {
+    this.subs[event] &&
+      this.subs[event].forEach((cb) => {
+        cb(...args)
+      })
+  }
+  off(event, cb) {
+    this.subs[event] && this.subs[event].delete(cb)
+    if (!this.subs[event].size) delete this.subs[event]
+  }
+  once(event, cb) {
+    const once = (...args) => {
+      cb(...args)
+      this.off(event, once)
+    }
+    this.on(event, once)
+  }
+}

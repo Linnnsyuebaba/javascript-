@@ -25,7 +25,7 @@ Date.prototype.format = function (format) {
     if (new RegExp(`(${k})`).test(format))
       format = format.replace(
         RegExp.$1,
-        RegExp.$1.length == 1 ? o[k] : (`00${o[k]}`).substr(('' + o[k]).length)
+        RegExp.$1.length == 1 ? o[k] : `00${o[k]}`.substr(('' + o[k]).length)
       )
   }
   return format
@@ -39,7 +39,7 @@ String.prototype.endWith = (words) => {
 
 // 获取cookie值
 function getCookie(key) {
-  var arr = document.cookie.match(new RegExp(`(^| )${key}=([^;]*)(;|$)`));
-  if (arr != null) return unescape(arr[2]);
-  return null;
+  var arr = document.cookie.match(new RegExp(`(^| )${key}=([^;]*)(;|$)`))
+  if (arr != null) return unescape(arr[2])
+  return null
 }
