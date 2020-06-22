@@ -1,4 +1,4 @@
-import isObject from '../utils'
+import { isObject } from '../../utils'
 import Dep from './Dep'
 export default function observer(data) {
   if (isObject(data)) {
